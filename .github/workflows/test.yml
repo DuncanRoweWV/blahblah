@@ -1,0 +1,15 @@
+name: Test workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  initial_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract PR information
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          env
+     
