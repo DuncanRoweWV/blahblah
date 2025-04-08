@@ -3,6 +3,8 @@ name: Test workflow
 on:
   workflow_dispatch:
 
+permissions: write-all
+
 jobs:
   initial_job:
     runs-on: ubuntu-latest
