@@ -12,7 +12,7 @@ jobs:
         env:
             NOTES_TOKEN: ${{ secrets.NOTES_TOKEN }}
         run: |
-            GITHUB_TOKEN=$NOTES_TOKEN; gh auth status; curl -L \
+            curl -L \
             -X PUT \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer ${{ secrets.NOTES_TOKEN }}" \
