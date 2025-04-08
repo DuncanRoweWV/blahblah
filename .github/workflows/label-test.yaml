@@ -9,6 +9,11 @@ jobs:
   label:
     runs-on: ubuntu-latest
     steps:
+      - name: Extract PR information
+        id: pr_info
+        run: |
+          echo "::set-output name=pr_name::$(jq -r '.pull_request.title' "$GITHUB_EVENT_PATH")"
+          echo "::set-output name=opened_by::$(jq -r '.pull_request.user.login' "$GITHUB_EVENT_PATH")"
       - name: this is a name
         run: |
           curl -X POST \
