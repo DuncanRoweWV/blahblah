@@ -1,0 +1,23 @@
+name: Labels
+
+on:
+  pull_request:
+  
+permissions: write-all
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: this is a name
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: 123" \
+            -d '{
+              "pr_url": "${{ github.event.pull_request.html_url }}",
+              "pr_name": "${{ steps.pr_info.outputs.pr_name }}",
+              "opened_by": "${{ steps.pr_info.outputs.opened_by }}",
+              "label": "asdf"
+            }' \
+            https://123.execute-api.eu-west-1.amazonaws.com/123
