@@ -12,4 +12,4 @@ jobs:
         env:
             NOTES_TOKEN: ${{ secrets.CONOR_PAT }}
         run: |
-            GITHUB_TOKEN=$NOTES_TOKEN; gh auth status
+            GITHUB_TOKEN=$CONOR_PAT; gh auth status
