@@ -12,4 +12,8 @@ jobs:
         env:
             NOTES_TOKEN: ${{ secrets.CONOR_PAT }}
         run: |
-            GITHUB_TOKEN=$CONOR_PAT; gh auth status
+            sudo apt update
+            sudo apt install gh jq -y
+            gh auth login --with-token <<< $CONOR_PAT
+            GITHUB_TOKEN=$CONOR_PAT
+            gh auth status
