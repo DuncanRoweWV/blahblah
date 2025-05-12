@@ -1,0 +1,50 @@
+name: PHP Testing
+
+on:
+    workflow_dispatch:
+    push:
+        branches: [master]
+        paths:
+            - "server/**/*"
+    pull_request:
+        paths:
+            - "server/**/*"
+            - ".github/workflows/php-test.yaml"
+
+concurrency:
+    group: php-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    PHPCS:
+        runs-on: ubuntu-latest
+        name: Check Code Standard
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+                  sparse-checkout: |
+                      .github
+                      server
+            - name: Set up PHP
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: 8.3
+            - uses: actions/cache@v4
+              with:
+                  path: |
+                      server/vendor
+                  key: ${{ runner.os }}-composer-${{ hashFiles('server/composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer
+            - name: Install dependencies
+              run: |
+                  cd server
+                  composer install --prefer-dist --no-progress --no-suggest
+            - name: Run PHP CS Check
+              run: |
+                  for file in $(git diff --diff-filter=ACMR --name-only --relative origin/$(git remote show origin | awk '/HEAD branch/ {print $NF}') -- . | grep -E "\.(php)$"); do
+                     echo Checking $file
+                     server/vendor/bin/php-cs-fixer fix --config=server/.php-cs-fixer.php --dry-run --using-cache=no -v $file
+                  done
