@@ -28,7 +28,6 @@ jobs:
                       ${{ runner.os }}-composer
             - name: Install dependencies
               run: |
-                  cd server
                   composer install --prefer-dist --no-progress --no-suggest
             - name: Run PHP CS Check
               run: |
