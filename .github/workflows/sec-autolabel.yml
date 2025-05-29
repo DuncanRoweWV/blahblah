@@ -1,4 +1,4 @@
-name: Auto Label Issues
+name: Auto Label PR
 
 on:
   pull_request:
