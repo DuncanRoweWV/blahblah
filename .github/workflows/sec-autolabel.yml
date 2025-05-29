@@ -3,10 +3,7 @@ name: Auto Label Issues
 on:
   pull_request:
     types: [opened]
-
-permissions:
-  pull-requests: write
-
+    
 jobs:
   add-label:
     runs-on: ubuntu-latest
