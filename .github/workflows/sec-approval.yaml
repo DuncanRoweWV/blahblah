@@ -53,10 +53,11 @@ jobs:
               });
             }
 
-            if(hasBLabel || hasSecLabel){
-              if (!lgtmFound || !secFound) {
+            if(hasBLabel && !lgtmFound) {
                 core.setFailed("❌ PR has no `LGTM` comment found.");
-              }
+            }
+            if(hasSecLabel && !secFound) {
+                core.setFailed("❌ PR has no `LGTM-sec` comment found.");
             }
               
       - name: Add 'security label' to PR
