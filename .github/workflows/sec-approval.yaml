@@ -88,10 +88,17 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             try {
+              let issueNumber;
+
+              if (context.payload.pull_request && context.payload.pull_request.number) {
+                issueNumber = context.payload.pull_request.number;
+              } else if (context.payload.issue && context.payload.issue.number) {
+                issueNumber = context.payload.issue.number;
+              } 
               await github.rest.issues.removeLabel({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: context.payload.pull_request.number,
+                issue_number: issueNumber,
                 name: 'Security NOT Approved'  // label to remove
               });
               console.log("Label removed successfully");
