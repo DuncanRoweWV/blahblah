@@ -3,7 +3,7 @@
 
 // Simulate a database connection
 $server = "localhost";
-$username = "admin";
+$username = "";
 $password = "";
 $database = "users_db";
 
