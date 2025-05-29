@@ -1,4 +1,4 @@
-name: Check Security Labels
+name: Security Label Comment
 
 on:
   pull_request:
@@ -10,7 +10,7 @@ permissions:
   issues: write
 
 jobs:
-  check-label:
+  comment-label:
     runs-on: ubuntu-latest
     steps:
       - name: Check if any security label is present
