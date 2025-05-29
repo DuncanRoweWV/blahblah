@@ -14,20 +14,20 @@ jobs:
       - name: Add 'security label' to PR
         uses: actions-ecosystem/action-add-labels@v1
         with:
-          github_token: ${{ secrets.TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           labels: Security NOT Approved
       - name: Comment on PR 
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const body = `
-Please add a security label:
-- [ ] A: No Security Impact
-- [ ] B: Security Review - Light Touch
-- [ ] C: Threat Model
-- [ ] D: Penetration Test
-Thanks!`;
+            Please add a security label:
+            - A: No Security Impact
+            - B: Security Review - Light Touch
+            - C: Threat Model
+            - D: Penetration Test
+            Thanks!`;
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
