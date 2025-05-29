@@ -1,0 +1,61 @@
+name: Approve Security Labels
+
+on:
+  pull_request:
+    types:
+    - labeled
+
+permissions:
+  pull-requests: read
+  issues: write
+
+jobs:
+  check-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if the necessary actions have been taken to approve
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const qaTeam = ["DuncanRoweWV"];
+            const secTeam = ["DuncanRoweWV"];
+            const pr = context.payload.pull_request;
+
+            const labels = pr.labels.map(label => label.name);
+            const hasBLabel = labels.includes("B: Security Review - Light Touch");
+            const hasSecLabel = labels.includes("C: Threat Model") || labels.includes("D: Penetration Test");
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number
+            });
+
+            let lgtmFound = false;
+            let secFound = false;
+
+            if(hasBLabel){
+              const lgtmFound = comments.some(comment => {
+                return comment.body.toLowerCase().includes("lgtm") &&
+                       qaTeam.includes(comment.user.login);
+              });
+            }
+
+             if(hasSecLabel){
+              const secFound = comments.some(comment => {
+                return comment.body.toLowerCase().includes("lgtm-sec") &&
+                       secTeam.includes(comment.user.login);
+              });
+            }
+            
+            if (!lgtmFound || !secFound) {
+              core.setFailed("❌ PR has a `B:` label but no `LGTM` comment found.");
+            }
+    - name: Add 'security label' to PR
+      if: success()
+      uses: actions-ecosystem/action-add-labels@v1
+      with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: Security Approved
+          
