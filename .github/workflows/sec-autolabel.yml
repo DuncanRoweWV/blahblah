@@ -11,5 +11,5 @@ jobs:
       - name: Add 'security label' to PR
         uses: actions-ecosystem/action-add-labels@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.TOKEN }}
           labels: Security NOT Approved
