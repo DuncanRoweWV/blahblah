@@ -36,14 +36,14 @@ jobs:
             let secFound = false;
 
             if(hasBLabel){
-              const lgtmFound = comments.some(comment => {
+              lgtmFound = comments.some(comment => {
                 return comment.body.toLowerCase().includes("lgtm") &&
                        qaTeam.includes(comment.user.login);
               });
             }
 
              if(hasSecLabel){
-              const secFound = comments.some(comment => {
+              secFound = comments.some(comment => {
                 return comment.body.toLowerCase().includes("lgtm-sec") &&
                        secTeam.includes(comment.user.login);
               });
