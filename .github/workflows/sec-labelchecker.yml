@@ -1,4 +1,4 @@
-name: Check PR Label
+name: Check Security Labels
 
 on:
   pull_request:
