@@ -42,7 +42,7 @@ jobs:
 
             const labels = pr.labels.map(label => label.name);
             const hasALabel = labels.includes("A: No Security Impact");
-            const hasBLabel = labels.includes("B: Security Review - Light Touch");
+            const hasBLabel = labels.includes("B: Security Review - light touch");
             const hasSecLabel = labels.includes("C: Threat Model") || labels.includes("D: Penetration Test");
   
             const { data: comments } = await github.rest.issues.listComments({
