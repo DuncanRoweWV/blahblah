@@ -1,0 +1,54 @@
+name: Check PR Label
+
+on:
+  pull_request:
+    types: [edited, synchronize]
+
+permissions:
+  pull-requests: read
+  issues: write
+
+jobs:
+  check-label:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if any security label is present
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const requiredLabels = [
+              "A: No Security Impact",
+              "B: Security Review - Light Touch",
+              "C: Threat Model",
+              "D: Penetration Test"
+            ];
+          
+            const labels = context.payload.pull_request.labels.map(label => label.name);
+            
+            // Define custom messages for each label
+            const messages = {
+              "A: No Security Impact": `
+            Please answer the following questions for **No Security Impact**:
+            - What parts of the system are affected?
+            - Why do you believe there is no security impact?`,
+              
+              "B: Security Review - Light Touch": `
+            Please answer the following questions for **Security Review - Light Touch**:
+            - Have you done a code review focusing on security?
+            - Are there any third-party dependencies?`,
+              
+              "C: Threat Model": `A message has been sent to the Workvivo security team.`,
+            
+              "D: Penetration Test": `A message has been sent to the Workvivo security team.`}
+            
+            for (const label of requiredLabels) {
+              if (labels.includes(label)) {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  body: messages[label]
+                });
+              }
+            }
