@@ -28,15 +28,9 @@ jobs:
             
             // Define custom messages for each label
             const messages = {
-              "A: No Security Impact": `
-            Please answer the following questions for **No Security Impact**:
-            - What parts of the system are affected?
-            - Why do you believe there is no security impact?`,
+              "A: No Security Impact": `Please add the Security Approved Label`,
               
-              "B: Security Review - Light Touch": `
-            Please answer the following questions for **Security Review - Light Touch**:
-            - Have you done a code review focusing on security?
-            - Are there any third-party dependencies?`,
+              "B: Security Review - Light Touch": `Please fill in this form: www.Workvivo.com`,
               
               "C: Threat Model": `A message has been sent to the Workvivo security team.`,
             
