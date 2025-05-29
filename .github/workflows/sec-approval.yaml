@@ -52,10 +52,11 @@ jobs:
             if (!lgtmFound || !secFound) {
               core.setFailed("❌ PR has a `B:` label but no `LGTM` comment found.");
             }
-    - name: Add 'security label' to PR
-      if: success()
-      uses: actions-ecosystem/action-add-labels@v1
-      with:
+            
+      - name: Add 'security label' to PR
+        if: success()
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           labels: Security Approved
           
