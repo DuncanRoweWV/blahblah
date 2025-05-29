@@ -20,7 +20,7 @@ jobs:
           script: |
             const requiredLabels = [
               "A: No Security Impact",
-              "B: Security Review - Light Touch",
+              "B: Security Review - light touch",
               "C: Threat Model",
               "D: Penetration Test"
             ];
@@ -31,7 +31,7 @@ jobs:
             const messages = {
               "A: No Security Impact": `Please add the Security Approved Label`,
               
-              "B: Security Review - Light Touch": `Please fill in this form: www.Workvivo.com`,
+              "B: Security Review - light touch": `Please fill in this form: www.Workvivo.com`,
               
               "C: Threat Model": `A message has been sent to the Workvivo security team.`,
             
