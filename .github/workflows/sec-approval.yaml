@@ -13,7 +13,7 @@ permissions:
   issues: write
 
 jobs:
-  check-label:
+  approve-label:
     runs-on: ubuntu-latest
     steps:
       - name: Check if the necessary actions have been taken to approve
