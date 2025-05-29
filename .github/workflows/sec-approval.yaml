@@ -23,13 +23,28 @@ jobs:
           script: |
             const qaTeam = ["DuncanRoweWV"];
             const secTeam = ["DuncanRoweWV"];
-            const pr = context.payload.pull_request;
+
+            let pr;
+            
+            // Event is pull_request.labeled (label added)
+            if (context.payload.pull_request) {
+              const pr = context.payload.pull_request;
+            }
+            else if (context.payload.issue && context.payload.issue.pull_request) {
+              const prNumber = context.payload.issue.number;
+              const { data } = await github.rest.pulls.get({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: prNumber
+              });
+            pr = data;
+            }
 
             const labels = pr.labels.map(label => label.name);
             const hasALabel = labels.includes("A: No Security Impact");
             const hasBLabel = labels.includes("B: Security Review - Light Touch");
             const hasSecLabel = labels.includes("C: Threat Model") || labels.includes("D: Penetration Test");
-
+  
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
