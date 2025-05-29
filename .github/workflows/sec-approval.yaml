@@ -23,6 +23,7 @@ jobs:
             const pr = context.payload.pull_request;
 
             const labels = pr.labels.map(label => label.name);
+            const hasALabel = labels.includes("A: No Security Impact");
             const hasBLabel = labels.includes("B: Security Review - Light Touch");
             const hasSecLabel = labels.includes("C: Threat Model") || labels.includes("D: Penetration Test");
 
@@ -48,11 +49,13 @@ jobs:
                        secTeam.includes(comment.user.login);
               });
             }
-            
-            if (!lgtmFound || !secFound) {
-              core.setFailed("❌ PR has a `B:` label but no `LGTM` comment found.");
+
+            if(hasBLabel || hasSecLabel){
+              if (!lgtmFound || !secFound) {
+                core.setFailed("❌ PR has no `LGTM` comment found.");
+              }
             }
-            
+              
       - name: Add 'security label' to PR
         if: success()
         uses: actions-ecosystem/action-add-labels@v1
