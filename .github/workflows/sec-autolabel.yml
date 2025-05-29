@@ -26,8 +26,7 @@ jobs:
             - A: No Security Impact
             - B: Security Review - Light Touch
             - C: Threat Model
-            - D: Penetration Test
-            Thanks!`;
+            - D: Penetration Test;
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
