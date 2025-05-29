@@ -29,9 +29,9 @@ jobs:
             
             // Define custom messages for each label
             const messages = {
-              "A: No Security Impact": `Please add the Security Approved Label`,
+              "A: No Security Impact": `Add the Security Approved Label`,
               
-              "B: Security Review - light touch": `Please fill in this form: www.Workvivo.com`,
+              "B: Security Review - light touch": `Please fill in this form: www.workvivo.com`,
               
               "C: Threat Model": `A message has been sent to the Workvivo security team.`,
             
