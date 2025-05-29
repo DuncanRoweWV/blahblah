@@ -2,7 +2,7 @@ name: Check PR Label
 
 on:
   pull_request:
-    types: [edited, synchronize]
+    types: [edited]
 
 permissions:
   pull-requests: read
