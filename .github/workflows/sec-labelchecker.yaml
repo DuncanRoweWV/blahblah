@@ -31,7 +31,7 @@ jobs:
             Please confirm you agree with the following statement - 
             - statement 1
             - statement 2 
-            - [] Yes
+            - [ ] Yes
             `;
             
             // Define custom messages for each label
