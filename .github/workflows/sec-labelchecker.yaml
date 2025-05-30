@@ -26,12 +26,19 @@ jobs:
             ];
           
             const labels = context.payload.pull_request.labels.map(label => label.name);
+
+            const longBody = `
+            Please confirm you agree with the following statement - 
+            - statement 1
+            - statement 2 
+            - [] Yes
+            `;
             
             // Define custom messages for each label
             const messages = {
               "A: No Security Impact": `Add the Security Approved Label`,
               
-              "B: Security Review - light touch": `Please fill in this form: www.workvivo.com`,
+              "B: Security Review - light touch": longBody,
               
               "C: Threat Model": `A message has been sent to the Workvivo security team.`,
             
