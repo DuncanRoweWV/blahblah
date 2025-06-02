@@ -69,7 +69,7 @@ jobs:
               });
               
               const targetBot = "github-actions[bot]";
-              const checkboxPattern = /- \[x\];
+              const checkboxPattern = /- \[x\]/i;
         
               const lgtmFound = comments.some(comment =>
                 comment.user.login === targetBot && checkboxPattern.test(comment.body)
