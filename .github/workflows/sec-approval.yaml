@@ -21,7 +21,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const qaTeam = ["DuncanRoweWV"];
             const secTeam = ["DuncanRoweWV"];
 
             let pr;
@@ -54,16 +53,19 @@ jobs:
             let lgtmFound = false;
             let secFound = false;
 
-            if(hasBLabel){
-              lgtmFound = comments.some(comment => {
-                return comment.body.toLowerCase().includes("lgtm") &&
-                       qaTeam.includes(comment.user.login);
-              });
+            if (hasBLabel) {
+              const body = pr.body || "";
+              const checkboxPattern = /- \[x\] /i;
+      
+              if (checkboxPattern.test(body)) {
+                lgtmFound = true;
+              } 
             }
 
-             if(hasSecLabel){
+              
+            if(hasSecLabel){
               secFound = comments.some(comment => {
-                return comment.body.toLowerCase().includes("lgtm-sec") &&
+                return comment.body.toLowerCase().includes("lgtm") &&
                        secTeam.includes(comment.user.login);
               });
             }
