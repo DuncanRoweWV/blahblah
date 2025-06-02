@@ -66,9 +66,6 @@ jobs:
                 console.log(`Comment #${index + 1} by ${comment.user.login}:`);
                 console.log(comment.body);
                 console.log('---');
-                if (comment.user.login.localeCompare('github-actions[bot]') === 0) {
-                  console.log('💯 It matches exactly');
-                }
               });
               
               const targetBot = "github-actions[bot]";
@@ -76,7 +73,9 @@ jobs:
               
         
               const lgtmFound = comments.some(comment => {
-                console.log(comment.user.login);
+                if (comment.user.login.localeCompare('github-actions[bot]') === 0) {
+                  console.log('💯 It matches exactly');
+                }
                 return comment.user.login === 'github-actions[bot]';
               });
         
