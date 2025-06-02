@@ -55,7 +55,7 @@ jobs:
 
             if (hasBLabel) {
               const body = pr.body || "";
-              const checkboxPattern = /- \[x\] /i;
+              const checkboxPattern = /- \[x\];
       
               if (checkboxPattern.test(body)) {
                 lgtmFound = true;
@@ -71,10 +71,10 @@ jobs:
             }
 
             if(hasBLabel && !lgtmFound) {
-                core.setFailed("❌ PR has no `LGTM` comment found.");
+                core.setFailed("❌ Security statements not acknowledged");
             }
             if(hasSecLabel && !secFound) {
-                core.setFailed("❌ PR has no `LGTM-sec` comment found.");
+                core.setFailed("❌ PR has no `LGTM` comment found.");
             }
               
       - name: Add 'security label' to PR
