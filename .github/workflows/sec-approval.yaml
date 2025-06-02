@@ -64,9 +64,7 @@ jobs:
               const targetBot = "github-actions[bot]";
               const checkboxPattern = /- \[x\]/i;
               
-              const lgtmFound = comments.some(comment => {
-                console.log(comment.user.login);
-                console.log(comment.user.login.localeCompare('github-actions[bot]'))
+              lgtmFound = comments.some(comment => {
                 if (comment.user.login.localeCompare('github-actions[bot]') === 0) {
                   return true;
                 }
@@ -74,7 +72,6 @@ jobs:
                   return false;
                 }
               });
-              console.log(lgtmFound);
             }
 
               
