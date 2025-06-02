@@ -61,7 +61,7 @@ jobs:
                 issue_number: prNumber
               });
               const targetBot = "github-actions[bot]";
-              const checkboxPattern = /- \[x\] /i;
+              const checkboxPattern = /- \[x\];
         
               const lgtmFound = comments.some(comment =>
                 comment.user.login === targetBot && checkboxPattern.test(comment.body)
