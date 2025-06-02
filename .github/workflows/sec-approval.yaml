@@ -75,10 +75,10 @@ jobs:
 
               
         
-              const lgtmFound = comments.some(comment =>
+              const lgtmFound = comments.some(comment => {
                 console.log(comment.user.login);
-                return comment.user.login === 'github-actions[bot]'
-              );
+                return comment.user.login === 'github-actions[bot]';
+              });
         
             }
 
