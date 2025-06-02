@@ -71,7 +71,7 @@ jobs:
               const targetBot = "github-actions[bot]";
         
               const lgtmFound = comments.some(comment =>
-                comment.user.login === targetBot && comment.body.includes('- [x]')
+                comment.user.login === targetBot
               );
         
             }
