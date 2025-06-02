@@ -71,12 +71,11 @@ jobs:
               const targetBot = "github-actions[bot]";
 
               
-        
               const lgtmFound = comments.some(comment => {
-                if (comment.user.login.localeCompare('github-actions[bot]') === 0) {
-                  console.log('💯 It matches exactly');
+                if (comment.user.login.localeCompare('github-actions[bot]') === 0 && checkboxPattern.test(comment.body)) {
+                  return true;
                 }
-                return comment.user.login === 'github-actions[bot]';
+              ;
               });
         
             }
