@@ -60,6 +60,14 @@ jobs:
                 repo: context.repo.repo,
                 issue_number: prNumber
               });
+
+              console.log("Comments on this PR:");
+              comments.forEach((comment, index) => {
+                console.log(`Comment #${index + 1} by ${comment.user.login}:`);
+                console.log(comment.body);
+                console.log('---');
+              });
+              
               const targetBot = "github-actions[bot]";
               const checkboxPattern = /- \[x\];
         
