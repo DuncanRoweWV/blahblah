@@ -65,7 +65,7 @@ jobs:
               const checkboxPattern = /- \[x\]/i;
               
               lgtmFound = comments.some(comment => {
-                if (comment.user.login.localeCompare('github-actions[bot]') === 0) {
+                if (comment.user.login.localeCompare('github-actions[bot]') === 0 && checkboxPattern.test(comment.body)) {
                   return true;
                 }
                 else{
