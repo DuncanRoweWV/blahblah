@@ -53,25 +53,35 @@ jobs:
             let lgtmFound = false;
             let secFound = false;
 
+            const prNumber = context.issue.number;
+
             if (hasBLabel) {
-              const prNumber = context.issue.number;
-              const { data: comments } = await github.rest.issues.listComments({
+            
+              // Get reviewers
+              const { data: pr } = await github.rest.pulls.get({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                issue_number: prNumber
+                pull_number: prNumber
               });
-              
-              const targetBot = "github-actions[bot]";
-              const checkboxPattern = /- \[x\]/i;
-              
+  
+              const reviewers = pr.requested_reviewers.map(r => r.login.toLowerCase());
+
               lgtmFound = comments.some(comment => {
-                if (comment.user.login.localeCompare('github-actions[bot]') === 0 && checkboxPattern.test(comment.body)) {
-                  return true;
-                }
-                else{
-                  return false;
-                }
+                return comment.body.toLowerCase().includes("lgtm") &&
+                       reviewers.includes(comment.user.login);
               });
+              
+              # const targetBot = "github-actions[bot]";
+              # const checkboxPattern = /- \[x\]/i;
+              
+              # lgtmFound = comments.some(comment => {
+              #   if (comment.user.login.localeCompare('github-actions[bot]') === 0 && checkboxPattern.test(comment.body)) {
+              #     return true;
+              #   }
+              #   else{
+              #     return false;
+              #   }
+              # });
             }
 
               
@@ -83,10 +93,10 @@ jobs:
             }
 
             if(hasBLabel && !lgtmFound) {
-                core.setFailed("❌ Security statements not acknowledged.");
+                core.setFailed("❌ PR has no `LGTM` comment from a reviewer");
             }
             if(hasSecLabel && !secFound) {
-                core.setFailed("❌ PR has no `LGTM` comment found.");
+                core.setFailed("❌ PR has no `LGTM` comment found from a security team member.");
             }
               
       - name: Add 'security label' to PR
