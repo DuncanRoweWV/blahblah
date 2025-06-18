@@ -70,18 +70,6 @@ jobs:
                 return comment.body.toLowerCase().includes("lgtm") &&
                        reviewers.includes(comment.user.login);
               });
-              
-              # const targetBot = "github-actions[bot]";
-              # const checkboxPattern = /- \[x\]/i;
-              
-              # lgtmFound = comments.some(comment => {
-              #   if (comment.user.login.localeCompare('github-actions[bot]') === 0 && checkboxPattern.test(comment.body)) {
-              #     return true;
-              #   }
-              #   else{
-              #     return false;
-              #   }
-              # });
             }
 
               
