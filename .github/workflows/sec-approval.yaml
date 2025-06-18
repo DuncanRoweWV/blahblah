@@ -55,7 +55,7 @@ jobs:
 
             const prNumber = context.issue.number;
 
-            if (hasBLabel) {
+            if (hasALabel || hasBLabel) {
             
               // Get reviewers
               const { data: pr } = await github.rest.pulls.get({
