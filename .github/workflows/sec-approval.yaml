@@ -80,6 +80,9 @@ jobs:
               });
             }
 
+            if(hasALabel && !lgtmFound) {
+                core.setFailed("❌ PR has no `LGTM` comment from a reviewer");
+            }
             if(hasBLabel && !lgtmFound) {
                 core.setFailed("❌ PR has no `LGTM` comment from a reviewer");
             }
