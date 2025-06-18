@@ -35,7 +35,7 @@ jobs:
             
             // Define custom messages for each label
             const messages = {
-              "A: No Security Impact": `Add the Security Approved Label`,
+              "A: No Security Impact": `New message here`,
               
               "B: Security Review - light touch": longBody,
               
