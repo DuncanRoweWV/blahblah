@@ -54,3 +54,18 @@ jobs:
                 });
               }
             }
+      - name: Check for specific label
+        if: github.event.label.name == 'D: Penetration Test'
+        env:
+          API_KEY: ${{ secrets.GH_LABEL }}
+        run: |
+          curl -X POST \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: $API_KEY" \
+            -d '{
+              "pr_url": "${{ github.event.pull_request.html_url }}",
+              "pr_name": "${{ steps.pr_info.outputs.pr_name }}",
+              "opened_by": "${{ steps.pr_info.outputs.opened_by }}",
+              "label": "D: Penetration Test"
+            }' \
+            https://0pk7g7hd4j.execute-api.eu-west-1.amazonaws.com/prod
