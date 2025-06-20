@@ -75,3 +75,4 @@ jobs:
                 "label": "D: Penetration Test"
               }' \
               https://0pk7g7hd4j.execute-api.eu-west-1.amazonaws.com/prod
+          fi
