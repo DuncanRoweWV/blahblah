@@ -60,7 +60,7 @@ jobs:
           echo "::set-output name=pr_name::$(jq -r '.pull_request.title' "$GITHUB_EVENT_PATH")"
           echo "::set-output name=opened_by::$(jq -r '.pull_request.user.login' "$GITHUB_EVENT_PATH")"
       - name: Check for specific label
-        if: 'github.event.label.name == "D: Penetration Test"'
+        if: "github.event.label.name == \"D: Penetration Test\""
         env:
           API_KEY: ${{ secrets.GH_LABEL }}
         run: |
