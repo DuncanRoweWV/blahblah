@@ -28,14 +28,15 @@ jobs:
             const labels = context.payload.pull_request.labels.map(label => label.name);
 
             const longBody = `
-            Please confirm you agree with the following statement - 
-            - statement 1
-            - statement 2 
+            By adding the security label or commenting LGTM, the approver acknowledges that 
+            - the code uses pre-approved patterns or minimal server-side changes
+            - the code has been reviewed for Cross Organisation issues and no issues have beenidentified
+            - the data and permissions applied have been validated and confirm to security standards
             `;
             
             // Define custom messages for each label
             const messages = {
-              "A: No Security Impact": `New message here`,
+              "A: No Security Impact": `By adding the security label or commenting LGTM, the approver acknowledges that there is no security impact to Workvivo in this PR.`,
               
               "B: Security Review - light touch": longBody,
               
