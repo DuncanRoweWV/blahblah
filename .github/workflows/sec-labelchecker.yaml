@@ -30,8 +30,8 @@ jobs:
             const longBody = `
             By adding the security label or commenting LGTM, the approver acknowledges that 
             - the code uses pre-approved patterns or minimal server-side changes
-            - the code has been reviewed for Cross Organisation issues and no issues have beenidentified
-            - the data and permissions applied have been validated and confirm to security standards
+            - the code has been reviewed for Cross Organisation issues and no issues have been identified
+            - the data and permissions applied have been validated and conform to security standards
             `;
             
             // Define custom messages for each label
