@@ -85,6 +85,10 @@ jobs:
             if(hasSecLabel && !secFound) {
                 core.setFailed("❌ PR has no `LGTM` comment found from a security team member.");
             }
+            
+            if(hasNoSecLabel == NULL && hasSecLabel == NULL) {
+                core.setFailed("❌ PR has no security label set.");
+            }
               
       - name: Add 'security label' to PR
         if: success()
