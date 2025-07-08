@@ -21,6 +21,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+            const core = require('@actions/core');
+            const github = require('@actions/github');
             const secTeam = ["DuncanRoweWV"];
 
             let pr;
@@ -62,12 +64,25 @@ jobs:
                 repo: context.repo.repo,
                 pull_number: prNumber
               });
+
+              const token = core.getInput('github_token', { required: true });
+              const prNumber = core.getInput('pr_number', { required: true });
+          
+              const octokit = github.getOctokit(token);
+              const { owner, repo } = github.context.repo;
+          
+              const reviewsResponse = await octokit.rest.pulls.listReviews({
+                owner,
+                repo,
+                pull_number: Number(prNumber),
+              });
+
+              console.log(reviewers);
+              console.log(reviewsResponse);
   
               const reviewers = pr.requested_reviewers.map(r => r.login.toLowerCase());
 
-              console.log(reviewers);
-              console.log(comments);
-
+            
               lgtmFound = comments.some(comment => {
                 return comment.body.toLowerCase().includes("lgtm") &&
                        reviewers.includes(comment.user.login);
