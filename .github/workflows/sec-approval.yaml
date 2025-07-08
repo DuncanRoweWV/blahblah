@@ -86,7 +86,7 @@ jobs:
                 core.setFailed("❌ PR has no `LGTM` comment found from a security team member.");
             }
             
-            if(hasNoSecLabel == null && hasSecLabel == null) {
+            if(hasNoSecLabel == false && hasSecLabel == false) {
                 core.setFailed("❌ PR has no security label set.");
             }
               
