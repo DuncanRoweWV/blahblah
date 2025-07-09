@@ -67,7 +67,10 @@ jobs:
                   .filter(review => review.state === "APPROVED")
                   .map(review => review.user.login.toLowerCase())
               );
-              
+
+              console.log(approvers)
+              console.log(reviewsResponse)
+              console.log(comments)
             
               lgtmFound = comments.some(comment => {
                 return comment.body.toLowerCase().includes("lgtm") &&
