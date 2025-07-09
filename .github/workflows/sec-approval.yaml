@@ -24,6 +24,7 @@ jobs:
             const secTeam = ["DuncanRoweWV"];
 
             let pr;
+            let prNumber;
             
             // Event is pull_request.labeled (label added)
             if (context.payload.pull_request) {
@@ -51,8 +52,6 @@ jobs:
 
             let lgtmFound = false;
             let secFound = false;
-
-            const prNumber = context.issue.number;
 
             if (hasNoSecLabel) {
 
