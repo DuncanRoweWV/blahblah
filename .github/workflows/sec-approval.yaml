@@ -55,35 +55,24 @@ jobs:
             const prNumber = context.issue.number;
 
             if (hasNoSecLabel) {
-            
-              // Get reviewers
-              const { data: pr } = await github.rest.pulls.get({
+
+              const reviewsResponse = await github.rest.pulls.listReviews({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                pull_number: prNumber
+                pull_number: pr.number,
               });
 
-              const token = core.getInput('github_token', { required: true });
-              const prNumber = core.getInput('pr_number', { required: true });
-          
-              const octokit = github.getOctokit(token);
-              const { owner, repo } = github.context.repo;
-          
-              const reviewsResponse = await octokit.rest.pulls.listReviews({
-                owner,
-                repo,
-                pull_number: Number(prNumber),
-              });
-
-              console.log(reviewers);
-              console.log(reviewsResponse);
-  
-              const reviewers = pr.requested_reviewers.map(r => r.login.toLowerCase());
-
+              // Get list of approvers (those who approved the PR)
+              const approvers = new Set(
+                reviewsResponse.data
+                  .filter(review => review.state === "APPROVED")
+                  .map(review => review.user.login.toLowerCase())
+              );
+              
             
               lgtmFound = comments.some(comment => {
                 return comment.body.toLowerCase().includes("lgtm") &&
-                       reviewers.includes(comment.user.login);
+                       approvers.includes(comment.user.login);
               });
             }
 
