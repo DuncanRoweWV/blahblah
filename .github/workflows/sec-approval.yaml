@@ -70,7 +70,10 @@ jobs:
 
               console.log(approvers)
               console.log(reviewsResponse)
-              console.log(comments)
+              for (const comment of comments) {
+                console.log(`Comment by: ${comment.user.login}`); // Prints username
+                console.log('Full user object:', JSON.stringify(comment.user, null, 2)); // Full details
+              }
             
               lgtmFound = comments.some(comment => {
                 return comment.body.toLowerCase().includes("lgtm") &&
