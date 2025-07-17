@@ -15,7 +15,7 @@ jobs:
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          labels: Waiting for Security Approval
+          labels: Waiting for Security Review Completion
       - name: Comment on PR 
         uses: actions/github-script@v7
         with:
@@ -24,9 +24,9 @@ jobs:
             const body = `
             Please add a security label:
             - A: No Security Impact
-            - B: Security Review - Light Touch
-            - C: Threat Model
-            - D: Penetration Test`;
+            - B: Self Security Review - light touch
+            - C: Security Team to Threat Model
+            - D: Security Team to Penetration Test`;
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
