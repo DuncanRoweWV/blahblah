@@ -38,11 +38,11 @@ jobs:
             const messages = {
               "A: No Security Impact": `By adding the security label or commenting LGTM, the approver acknowledges that there is no security impact to Workvivo in this PR.`,
               
-              "B: Security Review - light touch": longBody,
+              "B: Self Security Review - light touch": longBody,
               
-              "C: Threat Model": `A message has been sent to the Workvivo security team.`,
+              "C: Security Team to Threat Model": `A message has been sent to the Workvivo security team.`,
             
-              "D: Penetration Test": `A message has been sent to the Workvivo security team.`}
+              "D: Security Team to Penetration Test": `A message has been sent to the Workvivo security team.`}
             
             for (const label of requiredLabels) {
               if (labels.includes(label)) {
