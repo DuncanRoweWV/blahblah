@@ -68,19 +68,14 @@ jobs:
                   .map(review => review.user.login.toLowerCase())
               );
 
-              console.log(approvers)
-              console.log(reviewsResponse)
-              reviewsResponse.data
-              .filter(review => review.state === "APPROVED")
-              .forEach(review => {
-                console.log(review.user.login);
-              });
-              
-            
-              lgtmFound = comments.some(comment => {
-                return comment.body.toLowerCase().includes("lgtm") &&
-                       approvers.has(comment.user.login.toLowerCase());
-              });
+             
+              lgtmFound = comments.some(comment =>
+                comment.body.toLowerCase().includes("lgtm") &&
+                approvers.has(comment.user.login.toLowerCase())
+              ) || reviewsResponse.data.some(review =>
+                review.state === "APPROVED" &&
+                approvers.has(review.user.login.toLowerCase())
+              );
             }
 
               
