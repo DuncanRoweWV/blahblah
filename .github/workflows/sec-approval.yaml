@@ -129,7 +129,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: issueNumber,
-                name: 'Waiting for Security Approval'  // label to remove
+                name: 'Waiting for Security Review Completion'  // label to remove
               });
               console.log("Label removed successfully");
             } catch (error) {
