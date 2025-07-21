@@ -72,9 +72,6 @@ jobs:
               lgtmFound = comments.some(comment =>
                 comment.body.toLowerCase().includes("lgtm") &&
                 approvers.has(comment.user.login.toLowerCase())
-              ) || reviewsResponse.data.some(review =>
-                review.state === "APPROVED" &&
-                approvers.has(review.user.login.toLowerCase())
               );
             }
 
