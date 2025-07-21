@@ -43,12 +43,21 @@ jobs:
             const labels = pr.labels.map(label => label.name);
             const hasNoSecLabel = labels.includes("A: No Security Impact") || labels.includes("B: Security Review - light touch");
             const hasSecLabel = labels.includes("C: Threat Model") || labels.includes("D: Penetration Test");
-  
+
+            // Gets comments
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number
             });
+
+            // Gets request reviewers
+            const prDetails = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+            });
+
 
             let lgtmFound = false;
             let secFound = false;
@@ -61,11 +70,10 @@ jobs:
                 pull_number: pr.number,
               });
 
-              // Get list of approvers (those who approved the PR)
-              const approvers = new Set(
-                reviewsResponse.data
-                  .filter(review => review.state === "APPROVED")
-                  .map(review => review.user.login.toLowerCase())
+
+              // Get list of requested approvers (those who approved the PR)
+              const approvers = prDetails.data.requested_reviewers.map(user =>
+                user.login.toLowerCase()
               );
 
               console.log(approvers)
