@@ -68,6 +68,18 @@ jobs:
                   .map(review => review.user.login.toLowerCase())
               );
 
+              console.log(approvers)
+              reviewsResponse.data
+              .filter(review => review.state === "APPROVED")
+              .forEach(review => {
+                console.log(review.user.login);
+              });
+
+              for (const comment of comments) {
+                console.log(`Comment by: ${comment.user.login}`); // Prints username
+                console.log('Full user object:', JSON.stringify(comment.user, null, 2)); // Full details
+              }
+
              
               lgtmFound = comments.some(comment =>
                 comment.body.toLowerCase().includes("lgtm") &&
