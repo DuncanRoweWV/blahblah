@@ -86,7 +86,7 @@ jobs:
                 comment.body.toLowerCase().includes("lgtm-sec") &&
                 approvers.has(comment.user.login.toLowerCase())
               ) || reviewsResponse.data.some(review =>
-                review.body && review.body.toLowerCase().includes("lgtm")
+                review.body && review.body.toLowerCase().includes("lgtm-sec")
               );
             }
 
