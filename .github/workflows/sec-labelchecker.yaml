@@ -20,7 +20,7 @@ jobs:
           script: |
             const requiredLabels = [
               "A: No Security Impact",
-              "B: Self Security Review - light touch",
+              "B: Developer Security Review - light touch",
               "C: Security Team to Threat Model",
               "D: Security Team to Penetration Test"
             ];
