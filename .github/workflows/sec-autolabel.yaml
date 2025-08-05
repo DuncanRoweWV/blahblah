@@ -24,7 +24,7 @@ jobs:
             const body = `
             Please add a security label:
             - A: No Security Impact
-            - B: Self Security Review - light touch
+            - B: Developer Security Review - light touch
             - C: Security Team to Threat Model
             - D: Security Team to Penetration Test`;
             await github.rest.issues.createComment({
