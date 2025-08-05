@@ -29,7 +29,7 @@ jobs:
 
             const longBody = `
             By adding the security label or commenting LGTM, the approver acknowledges that 
-            - the code uses pre-approved patterns or minimal server-side changes
+            - the majority of the code added is pre-existing code that has been verified/security reviewed and/or contains minimal server-side changes
             - the code has been reviewed for Cross Organisation issues and no issues have been identified
             - the data and permissions applied have been validated and conform to security standards
             `;
@@ -38,7 +38,7 @@ jobs:
             const messages = {
               "A: No Security Impact": `By adding the security label or commenting LGTM, the approver acknowledges that there is no security impact to Workvivo in this PR.`,
               
-              "B: Self Security Review - light touch": longBody,
+              "B: Developer Security Review - light touch": longBody,
               
               "C: Security Team to Threat Model": `A message has been sent to the Workvivo security team.`,
             
