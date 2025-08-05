@@ -30,6 +30,7 @@ jobs:
             const longBody = `
             By adding the security label or commenting LGTM, the approver acknowledges that 
             - the majority of the code added is pre-existing code that has been verified/security reviewed and/or contains minimal server-side changes
+            - when appropriate, code from the [back-end cookbook](https://docs.zoom.us/doc/RLpU7rHtTMuNGpbr4qOM1g) has been used
             - the code has been reviewed for Cross Organisation issues and no issues have been identified
             - the data and permissions applied have been validated and conform to security standards
             `;
