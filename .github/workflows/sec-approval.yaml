@@ -85,7 +85,7 @@ jobs:
 
 
               lgtmFound = comments.some(comment =>
-                comment.body.toLowerCase().includes("lgtm") &&
+                comment.body.toLowerCase().includes("lgtm-sec") &&
                 approvers.has(comment.user.login.toLowerCase())
               ) || reviewsResponse.data.some(review =>
                 review.body && review.body.toLowerCase().includes("lgtm")
@@ -97,16 +97,16 @@ jobs:
               const secTeamLower = secTeam.map(u => u.toLowerCase());
 
               secFound = comments.some(comment => {
-                return comment.body.toLowerCase().includes("lgtm") &&
+                return comment.body.toLowerCase().includes("lgtm-sec") &&
                        secTeamLower.includes(comment.user.login.toLowerCase());
               });
             }
 
             if(hasNoSecLabel && !lgtmFound) {
-                core.setFailed("❌ PR has no `LGTM` comment from a reviewer");
+                core.setFailed("❌ PR has no `LGTM-SEC` comment from a reviewer");
             }
             if(hasSecLabel && !secFound) {
-                core.setFailed("❌ PR has no `LGTM` comment found from a security team member.");
+                core.setFailed("❌ PR has no `LGTM-SEC` comment found from a security team member.");
             }
             
             if(hasNoSecLabel == false && hasSecLabel == false) {
