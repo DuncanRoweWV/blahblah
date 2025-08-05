@@ -41,8 +41,8 @@ jobs:
             }
 
             const labels = pr.labels.map(label => label.name);
-            const hasNoSecLabel = labels.includes("A: No Security Impact") || labels.includes("B: Security Review - light touch");
-            const hasSecLabel = labels.includes("C: Threat Model") || labels.includes("D: Penetration Test");
+            const hasNoSecLabel = labels.includes("A: No Security Impact") || labels.includes("B: Developer Security Review - light touch");
+            const hasSecLabel = labels.includes("C: Security Team to Threat Model") || labels.includes("D: Security Team to Penetration Test");
 
             // Gets comments
             const { data: comments } = await github.rest.issues.listComments({
