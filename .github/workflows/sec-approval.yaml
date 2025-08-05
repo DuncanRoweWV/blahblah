@@ -72,9 +72,7 @@ jobs:
 
 
               // Get list of requested approvers (those who approved the PR)
-              const approvers = prDetails.data.requested_reviewers.map(user =>
-                user.login.toLowerCase()
-              );
+              const approvers = new Set(prDetails.data.requested_reviewers.map(user => user.login.toLowerCase()));
 
               console.log(approvers)
               reviewsResponse.data
