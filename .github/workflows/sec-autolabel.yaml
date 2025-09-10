@@ -25,8 +25,7 @@ jobs:
             Please add a security label according to this [documentation](https://docs.zoom.us/doc/yY7m53UIRQurGassj_9ugQ):
             - A: No Security Impact
             - B: Developer Security Review - light touch
-            - C: Security Team to Threat Model
-            - D: Security Team to Penetration Test`;
+            - C: Security Team to Review`;
             await github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
