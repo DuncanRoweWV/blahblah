@@ -21,8 +21,7 @@ jobs:
             const requiredLabels = [
               "A: No Security Impact",
               "B: Developer Security Review - light touch",
-              "C: Security Team to Threat Model",
-              "D: Security Team to Penetration Test"
+              "C: Security Team to Review"
             ];
           
             const labels = context.payload.pull_request.labels.map(label => label.name);
@@ -41,9 +40,7 @@ jobs:
               
               "B: Developer Security Review - light touch": longBody,
               
-              "C: Security Team to Threat Model": `A message has been sent to the Workvivo security team.`,
-            
-              "D: Security Team to Penetration Test": `A message has been sent to the Workvivo security team.`}
+              "C: Security Team to Review": `A message has been sent to the Workvivo security team.`}
             
             for (const label of requiredLabels) {
               if (labels.includes(label)) {
@@ -65,7 +62,7 @@ jobs:
           API_KEY: ${{ secrets.GH_LABEL }}
         run: |
           LABEL=$(jq -r '.label.name' "$GITHUB_EVENT_PATH")
-          if [ "$LABEL" = "D: Penetration Test" ]; then
+          if [ "$LABEL" = "C: Security Team to Review" ]; then
             curl -X POST \
               -H "Content-Type: application/json" \
               -H "x-api-key: $API_KEY" \
@@ -73,7 +70,7 @@ jobs:
                 "pr_url": "${{ github.event.pull_request.html_url }}",
                 "pr_name": "${{ steps.pr_info.outputs.pr_name }}",
                 "opened_by": "${{ steps.pr_info.outputs.opened_by }}",
-                "label": "D: Penetration Test"
+                "label": "C: Security Team to Review"
               }' \
               https://0pk7g7hd4j.execute-api.eu-west-1.amazonaws.com/prod
           fi
