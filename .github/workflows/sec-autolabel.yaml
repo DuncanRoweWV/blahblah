@@ -26,9 +26,21 @@ jobs:
             - A: No Security Impact
             - B: Developer Security Review - light touch
             - C: Security Team to Review`;
-            await github.rest.issues.createComment({
+
+            // Fetch all comments on the PR
+            const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
               issue_number: context.issue.number,
-              body: body
             });
+
+            const exists = comments.some(c => c.body === body);
+
+            if (!exists) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body
+              });
+            } 
