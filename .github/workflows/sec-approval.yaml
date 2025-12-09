@@ -79,16 +79,15 @@ jobs:
                 // Get list of requested approvers (those who approved the PR)
                 const approvers = new Set(prDetails.data.requested_reviewers.map(user => user.login.toLowerCase()));
   
-                reviewsResponse.data
-                .filter(review => review.state === "APPROVED")
-                .forEach(review => {
-                  console.log(review.body);
-                });
-  
+                // If already approved
+                const approved_users = new Set(reviewsResponse.data.filter(r => r.state === "APPROVED").map(r => r.user.login.toLowerCase()));
   
                 lgtmFound = comments.some(comment =>
                   comment.body.toLowerCase().includes("lgtm-sec") &&
                   approvers.has(comment.user.login.toLowerCase())
+                ) || comments.some(comment =>
+                  comment.body.toLowerCase().includes("lgtm-sec") &&
+                  approved_users.has(comment.user.login.toLowerCase())
                 ) || reviewsResponse.data.some(review =>
                   review.body && review.body.toLowerCase().includes("lgtm-sec")
                 );
