@@ -90,6 +90,8 @@ jobs:
                     legitimateReviewers.add(r.user.login.toLowerCase());
                   }
                 }
+
+                console.log(legitimateReviewers);
                 
                 lgtmFound = comments.some(comment =>
                   comment.body?.toLowerCase().includes("lgtm-sec") &&
