@@ -76,20 +76,28 @@ jobs:
                 });
   
   
-                // Get list of requested approvers (those who approved the PR)
-                const approvers = new Set(prDetails.data.requested_reviewers.map(user => user.login.toLowerCase()));
-  
-                // If already approved
-                const approved_users = new Set(reviewsResponse.data.filter(r => r.state === "APPROVED").map(r => r.user.login.toLowerCase()));
-  
+                // Build a set of everyone who was EVER a legitimate reviewer
+                const legitimateReviewers = new Set();
+                
+                // Add requested reviewers
+                for (const user of prDetails.data.requested_reviewers) {
+                  legitimateReviewers.add(user.login.toLowerCase());
+                }
+                
+                // Add everyone who ever submitted a review (any state)
+                for (const r of reviewsResponse.data) {
+                  if (r.user?.login) {
+                    legitimateReviewers.add(r.user.login.toLowerCase());
+                  }
+                }
+                
                 lgtmFound = comments.some(comment =>
-                  comment.body.toLowerCase().includes("lgtm-sec") &&
-                  approvers.has(comment.user.login.toLowerCase())
-                ) || comments.some(comment =>
-                  comment.body.toLowerCase().includes("lgtm-sec") &&
-                  approved_users.has(comment.user.login.toLowerCase())
-                ) || reviewsResponse.data.some(review =>
-                  review.body && review.body.toLowerCase().includes("lgtm-sec")
+                  comment.body?.toLowerCase().includes("lgtm-sec") &&
+                  legitimateReviewers.has(comment.user?.login?.toLowerCase())
+                ) ||
+                reviewsResponse.data.some(review =>
+                  review.body?.toLowerCase().includes("lgtm-sec") &&
+                  legitimateReviewers.has(review.user?.login?.toLowerCase())
                 );
               }
                 
