@@ -28,7 +28,7 @@ jobs:
             
             // Event is pull_request.labeled (label added)
             if (context.payload.pull_request) {
-              pr = context.payload.pull_request;
+              prNumber = context.payload.pull_request.number;
             }
             else if (context.payload.issue && context.payload.issue.pull_request) {
               prNumber = context.payload.issue.number;
