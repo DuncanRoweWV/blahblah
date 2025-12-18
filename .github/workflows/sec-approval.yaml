@@ -39,7 +39,14 @@ jobs:
             pr = data;
             }
 
-            const labels = pr.labels.map(label => label.name);
+            const { data: currentLabels } = await github.rest.issues.listLabelsOnIssue({
+              owner,
+              repo,
+              issue_number: prNumber
+            });
+            
+            const labels = currentLabels.map(label => label.name);
+
             const securityApproved = labels.includes("Security Approved");
             const hasDevSecLabel = labels.includes("A: No Security Impact") || labels.includes("B: Developer Security Review - light touch");
             const hasSecLabel = labels.includes("C: Security Team to Review");
