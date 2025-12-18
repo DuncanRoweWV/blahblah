@@ -3,8 +3,8 @@ name: Approve Security Labels
 on:
   issue_comment:
     types: [created]
-  pull_request:
-    types: [labeled]
+  pull_request_review:
+    types: [submitted]
 
 
 permissions:
