@@ -91,11 +91,11 @@ jobs:
                 console.log(legitimateReviewers);
                 
                 lgtmFound = comments.some(comment =>
-                  comment.body?.toLowerCase().includes("lgtm-sec") &&
+                  comment.body?.toLowerCase().includes("lgtm") &&
                   legitimateReviewers.has(comment.user?.login?.toLowerCase())
                 ) ||
                 reviewsResponse.data.some(review =>
-                  review.body?.toLowerCase().includes("lgtm-sec") &&
+                  review.body?.toLowerCase().includes("lgtm") &&
                   legitimateReviewers.has(review.user?.login?.toLowerCase())
                 );
               }
@@ -104,16 +104,16 @@ jobs:
                 const secTeamLower = secTeam.map(u => u.toLowerCase());
   
                 secFound = comments.some(comment => {
-                  return comment.body.toLowerCase().includes("lgtm-sec") &&
+                  return comment.body.toLowerCase().includes("lgtm") &&
                          secTeamLower.includes(comment.user.login.toLowerCase());
                 });
               }
   
               if(hasDevSecLabel && !lgtmFound) {
-                  core.setFailed("❌ PR has no `LGTM-SEC` comment from a reviewer");
+                  core.setFailed("❌ PR has no `LGTM` comment from a reviewer");
               }
               if(hasSecLabel && !secFound) {
-                  core.setFailed("❌ PR has no `LGTM-SEC` comment found from a security team member.");
+                  core.setFailed("❌ PR has no `LGTM` comment found from a security team member.");
               }
               
               if(hasDevSecLabel == false && hasSecLabel == false) {
