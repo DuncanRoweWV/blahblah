@@ -40,8 +40,8 @@ jobs:
             }
 
             const { data: currentLabels } = await github.rest.issues.listLabelsOnIssue({
-              owner,
-              repo,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
               issue_number: prNumber
             });
             
