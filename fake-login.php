@@ -4,7 +4,7 @@
 // Simulate a database connection
 $server = "localhost";
 $username = "admin";
-$password = "";
+$password = "asdf";
 $database = "users_db";
 
 // Fake connection
