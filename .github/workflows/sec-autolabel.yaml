@@ -21,7 +21,11 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
+
+            const marker = '<!-- security-label-comment -->';
+
             const body = `
+            ${marker}
             Please add a security label according to this [documentation](https://docs.zoom.us/doc/yY7m53UIRQurGassj_9ugQ):
             - A: No Security Impact
             - B: Developer Security Review - light touch
@@ -34,7 +38,8 @@ jobs:
               issue_number: context.issue.number,
             });
 
-            const exists = comments.some(c => c.body === body);
+
+            const exists = comments.some(c => c.body.includes(marker));
 
             if (!exists) {
               await github.rest.issues.createComment({
