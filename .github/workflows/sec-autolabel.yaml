@@ -31,6 +31,16 @@ jobs:
             - B: Developer Security Review - light touch
             - C: Security Team to Review`;
 
+            const requiredLabels = [
+              "A: No Security Impact",
+              "B: Developer Security Review - light touch",
+              "C: Security Team to Review"
+            ];
+          
+            const labels = context.payload.pull_request.labels.map(label => label.name);
+
+            const hasRequiredLabel = requiredLabels.some(label =>labels.includes(label));
+
             // Fetch all comments on the PR
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
@@ -41,7 +51,7 @@ jobs:
 
             const exists = comments.some(c => c.body.includes(marker));
 
-            if (!exists) {
+            if (!exists && !hasRequiredLabel) {
               await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
