@@ -153,14 +153,14 @@ jobs:
             }
               
       - name: Add 'security label' to PR
-        if: success()
+        if: success() && github.event.issue.pull_request != null
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           labels: Security Approved
       - name: Remove label from PR
         uses: actions/github-script@v7
-        if: success()
+        if: success() && github.event.issue.pull_request != null
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
