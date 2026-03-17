@@ -82,14 +82,21 @@ jobs:
         run: |
           LABEL=$(jq -r '.label.name' "$GITHUB_EVENT_PATH")
           if [ "$LABEL" = "C: Security Team to Review" ]; then
+            payload=$(jq -n \
+              --arg pr_url "${{ github.event.pull_request.html_url }}" \
+              --arg pr_name "${{ steps.pr_info.outputs.pr_name }}" \
+              --arg opened_by "${{ steps.pr_info.outputs.opened_by }}" \
+              --arg label "C: Security Team to Review" \
+              '{
+                pr_url: $pr_url,
+                pr_name: $pr_name,
+                opened_by: $opened_by,
+                label: $label
+              }')
+        
             curl -X POST \
               -H "Content-Type: application/json" \
               -H "x-api-key: $API_KEY" \
-              -d '{
-                "pr_url": "${{ github.event.pull_request.html_url }}",
-                "pr_name": "${{ steps.pr_info.outputs.pr_name }}",
-                "opened_by": "${{ steps.pr_info.outputs.opened_by }}",
-                "label": "C: Security Team to Review"
-              }' \
+              -d "$payload" \
               https://0pk7g7hd4j.execute-api.eu-west-1.amazonaws.com/prod
           fi
